@@ -15,7 +15,7 @@ public class Card {
     public Suit getSuit(){
         return(this.suit);
     }
-    
+
     //Override the default toString
     public String toString(){
         return(this.face + " of " + this.suit);

@@ -38,7 +38,9 @@ public class CardDealing{
     private static int compareHands(Card[] hand1, Card[] hand2) {
         // Evaluate hands
         int rank1 = evaluateHand(hand1);
+        System.out.println("Hand 1 rank: " + rank1);
         int rank2 = evaluateHand(hand2);
+        System.out.println("Hand 2 rank: " + rank2);
 
         // Compare ranks
         return Integer.compare(rank1, rank2);

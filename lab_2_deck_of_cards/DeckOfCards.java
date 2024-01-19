@@ -3,6 +3,7 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 public class DeckOfCards {
     private static final SecureRandom randomNumbers = new SecureRandom();
@@ -77,7 +78,7 @@ public class DeckOfCards {
     }
 
     public static boolean hasStraight(Card[] hand) {
-        Arrays.sort(hand);
+        Arrays.sort(hand, Comparator.comparing(Card::getFace));
         for (int i = 0; i < hand.length - 1; i++) {
             if (hand[i + 1].getFace().ordinal() - hand[i].getFace().ordinal() != 1) {
                 return false;
@@ -93,4 +94,3 @@ public class DeckOfCards {
         return faceCount.containsValue(3L) && faceCount.containsValue(2L);
     }
 }
-
