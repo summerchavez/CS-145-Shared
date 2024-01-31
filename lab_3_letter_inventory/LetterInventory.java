@@ -4,14 +4,20 @@
 //Lab 3 - Letter Inventory
 
 package CS_145_Shared.lab_3_letter_inventory;
-import java.util.Arrays;
 
 public class LetterInventory{
     private int[] counts;
     private int size;
 
     public LetterInventory(String data){
-        //TODO
+        counts = new int[26];
+        for(int i = 0; i < data.length(); i++){
+            char ch = data.charAt(i);
+            if(Character.isLetter(ch)){
+                int index = Character.toLowerCase(ch) - 'a';
+                counts[index]++;
+            }
+        }
     }
 
     public LetterInventory(int[] data){
@@ -21,21 +27,31 @@ public class LetterInventory{
         this.counts = data.clone();
         this.size = 0;
         for(int count : data){
-            size++;
+            size+=count;
         }
     }
 
     //should take in size as the limit for a for loop and then maybe an if statement to get a count on 
     //how many of each char their is in the array
     public int get(char letter){
-        //TODO
-        return(0);//PLACEHOLDER
+        if(!Character.isLetter(letter)){
+            throw new IllegalArgumentException("Not a valid input");
+        }
+        int index = Character.toLowerCase(letter)- 'a';
+        return counts[index];
     }
 
     //just setting the count of a letter in the list to the passed int value
     //pretty sure its way more complicated than this
     public void set(char letter, int value){
-        //TODO
+        if(!Character.isLetter(letter)){
+            throw new IllegalArgumentException("Not a valid input");        
+        }
+        if(value < 0){
+            throw new IllegalArgumentException("The value cant be negative");        
+        }
+        int index = Character.toLowerCase(letter) - 'a';
+        counts[index] = value;
     }
 
     //counts the size of the inventory/keeps track
