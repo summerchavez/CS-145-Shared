@@ -5,6 +5,7 @@
 
 package CS_145_Shared.lab_3_letter_inventory;
 
+//This lab is to keep track of the amount of letters of the alphabet in a string
 public class LetterInventory{
     private int[] counts;
     private int size;
@@ -22,6 +23,7 @@ public class LetterInventory{
         }
     }
 
+    //Mostly a helper method for the add and suptract methods
     public LetterInventory(int[] data){
         if(data.length!=26){
             throw new IllegalArgumentException("Data must have size 26");
@@ -67,13 +69,16 @@ public class LetterInventory{
         return(size==0);
     }
 
+    //This method will return the amount of letters in alphabetical order within brackets
+    @Override
     public String toString(){
-        String c = "";
+        String c = "[";
         for(int i = 0; i < 26; i++){
             for(int j = 0; j < this.counts[i]; j++){
                 c += (char)('a'+ i);
             }
         }
+        c+="]";
         return(c);
     }
 
