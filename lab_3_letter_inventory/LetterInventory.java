@@ -9,6 +9,7 @@ public class LetterInventory{
     private int[] counts;
     private int size;
 
+    //This method will keep track of the alphabetic letters in a string
     public LetterInventory(String data){
         counts = new int[26];
         for(int i = 0; i < data.length(); i++){
@@ -16,6 +17,7 @@ public class LetterInventory{
             if(Character.isLetter(ch)){
                 int index = Character.toLowerCase(ch) - 'a';
                 counts[index]++;
+                size++;
             }
         }
     }
@@ -31,8 +33,7 @@ public class LetterInventory{
         }
     }
 
-    //should take in size as the limit for a for loop and then maybe an if statement to get a count on 
-    //how many of each char their is in the array
+    //This method will get the count of how many letters are in the inventory
     public int get(char letter){
         if(!Character.isLetter(letter)){
             throw new IllegalArgumentException("Not a valid input");
@@ -41,8 +42,7 @@ public class LetterInventory{
         return counts[index];
     }
 
-    //just setting the count of a letter in the list to the passed int value
-    //pretty sure its way more complicated than this
+    //This method will grab the array from letterinventory to get a count on the amount of letters
     public void set(char letter, int value){
         if(!Character.isLetter(letter)){
             throw new IllegalArgumentException("Not a valid input");        
@@ -51,6 +51,7 @@ public class LetterInventory{
             throw new IllegalArgumentException("The value cant be negative");        
         }
         int index = Character.toLowerCase(letter) - 'a';
+        size -= counts[index] - value; //updating the size 
         counts[index] = value;
     }
 
