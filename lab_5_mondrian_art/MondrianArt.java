@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.util.Random;
 public class MondrianArt{
-    private static final int INITIAL_WIDTH = 800;
-    private static final int INITIAL_HEIGHT = 600;
+    private static final int INITIAL_WIDTH = 700;
+    private static final int INITIAL_HEIGHT = 700;
     private static final int MIN_SPLIT_SIZE = 100;
 
     private static Random random = new Random();
@@ -13,11 +13,22 @@ public class MondrianArt{
     }
 
     public static void draw(Graphics g, int x, int y, int width, int height){
-        int randomSplitWidth = random.nextInt((int)(width * 1.5 - MIN_SPLIT_SIZE)) + MIN_SPLIT_SIZE;
-        int randomSplitHeight = random.nextInt((int)(height * 1.5 - MIN_SPLIT_SIZE)) + MIN_SPLIT_SIZE;
+        int randomSplitWidth;
+        if((int)(width * 1.5 - MIN_SPLIT_SIZE) > 0) {
+            randomSplitWidth = random.nextInt((int)(width * 1.5 - MIN_SPLIT_SIZE)) + MIN_SPLIT_SIZE;
+        } else {
+            randomSplitWidth = MIN_SPLIT_SIZE;
+        }
 
-        int splitX = (int)(width * (random.nextDouble() * 0.34 +0.33));
-        int splitY = (int)(height * (random.nextDouble() * 0.34 +0.33));
+        int randomSplitHeight;
+        if((int)(height * 1.5 - MIN_SPLIT_SIZE) > 0) {
+            randomSplitHeight = random.nextInt((int)(height * 1.5 - MIN_SPLIT_SIZE)) + MIN_SPLIT_SIZE;
+        } else {
+            randomSplitHeight = MIN_SPLIT_SIZE;
+        }
+
+        int splitX = (int)(width * (random.nextDouble() * 0.34 + 0.33));
+        int splitY = (int)(height * (random.nextDouble() * 0.34 + 0.33));
 
         boolean hSplit = false;
         boolean vSplit = false;
@@ -36,6 +47,12 @@ public class MondrianArt{
             hSplit = true;
             vSplit = true;
         }
+        else if (randomSplitWidth < width) {
+            hSplit = true;
+        }
+        else if (randomSplitHeight < height) {
+            vSplit = true;
+        }
 
         if (hSplit && vSplit) {
             draw(g, x, y, splitX, splitY);
@@ -49,9 +66,25 @@ public class MondrianArt{
         }
         else if (vSplit) {
             draw(g, x, y, width, splitY);
-            draw(g, x, splitY, width, height - splitY);
+            draw(g, x, y + splitY, width, height - splitY);
         }
         else {
+            if(random.nextBoolean()) {
+                int colorSelector = random.nextInt(3);
+                switch(colorSelector) {
+                    case 0:
+                        g.setColor(Color.BLUE);
+                        break;
+                    case 1:
+                        g.setColor(Color.YELLOW);
+                        break;
+                    case 2:
+                        g.setColor(Color.RED);
+                        break;
+                }
+                g.fillRect(x, y, width, height);
+            }
+            g.setColor(Color.BLACK);
             g.drawRect(x, y, width, height);
             //TODO: fill
         }
